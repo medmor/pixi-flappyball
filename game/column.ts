@@ -4,7 +4,7 @@ export default class {
 
   columns: PIXI.Sprite[] = []
 
-  constructor(public height = 60, public width = 9){
+  constructor(public height = 70, public width = 9){
     
   }
 
@@ -92,7 +92,7 @@ export default class {
       return Math.random() * -200 - 20
     }
     else{
-      return Math.random() * 200 + 100
+      return Math.random() * 100 + 200
     }
   }
 }
