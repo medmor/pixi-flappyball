@@ -2,36 +2,44 @@ import * as PIXI from "pixi.js"
 
 export default class {
 
-  column: PIXI.Sprite = null
+  column: PIXI.Sprite[] = []
 
   constructor(public height = 60, public width = 9){
     
   }
 
   addToGame(stage: PIXI.Container){
-    stage.addChild(this.column)
+    for(let i = 0; i < this.column.length; i++){
+      stage.addChild(this.column[i])
+    }
   }
 
-  getBounds(){
-    return this.column.getBounds()
+  getBounds(i){
+    return this.column[i].getBounds()
   }
 
   move(speed){
-    this.column.x += speed
+    for(let i = 0; i < this.column.length; i++){
+      this.column[i].x += speed
+    }
   }
 
   generateSprite(renderer: PIXI.Renderer){
     const graphics = new PIXI.Graphics()
-    graphics.clear()
-    graphics.beginFill(0x995116)
-    graphics.lineStyle(0)
-    graphics.drawPolygon(this.calcColumnPoints())
-    graphics.endFill()
+    let x = 600;
+    for(let i = 0; i < 3; i++){
+      graphics.clear()
+      graphics.beginFill(0x995116)
+      graphics.lineStyle(0)
+      graphics.drawPolygon(this.calcColumnPoints())
+      graphics.endFill()
 
-    const texture = renderer.generateTexture(graphics, PIXI.SCALE_MODES.LINEAR, 1);
-    this.column = new PIXI.Sprite(texture);
-    this.column.x = 600
-    this.column.y = 100
+      const texture = renderer.generateTexture(graphics, PIXI.SCALE_MODES.LINEAR, 1);
+      this.column.push(new PIXI.Sprite(texture));
+      this.column[i].x = x
+      this.column[i].y = this.randomY()
+      x+=200
+    }
   }
 
   calcColumnPoints(){
@@ -72,5 +80,14 @@ export default class {
     }
     points.push(new PIXI.Point(0,0))
     return points
+  }
+
+  randomY(){
+    if(Math.random()>.5){
+      return Math.random() * -200
+    }
+    else{
+      return Math.random() * 100 + 100
+    }
   }
 }

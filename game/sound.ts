@@ -1,26 +1,26 @@
 import {Howl, Howler} from 'howler';
 
 export default class SoundManager{
-  music : Howl = null
-  win : Howl = null
-  lose : Howl = null
+  static music : Howl = null
+  static jump : Howl = null
+  static hit : Howl = null
 
 
 
-  load(){
+  static load(){
     this.music = new Howl({
-      src: ['https://github.com/medmor/alphabets/raw/master/sounds/bensoundMusic.mp3'],
+      src: ['https://github.com/medmor/pixi-flappyball/raw/master/sounds/music.mp3'],
       volume: .6,
       loop: true
       });
-    this.win = new Howl({src: ['https://github.com/medmor/alphabets/raw/master/sounds/win.wav']})
-    this.lose = new Howl({src: ['https://github.com/medmor/alphabets/raw/master/sounds/lose.wav']})
+    this.jump = new Howl({src: ['https://github.com/medmor/pixi-flappyball/raw/master/sounds/jump.wav']})
+    this.hit = new Howl({src: ['https://github.com/medmor/pixi-flappyball/raw/master/sounds/hit.wav']})
       
 
     this.music.on('load', ()=>{
       this.music.play()
     })
+  console.log(7)
   }
-
 }
 

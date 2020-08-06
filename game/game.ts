@@ -1,6 +1,9 @@
 import * as PIXI from "pixi.js"
 import Ball from "./ball"
 import Column from "./column"
+import Sound from "./sound"
+
+
 export default class extends PIXI.Application {
 
   ball: Ball = null
@@ -40,8 +43,9 @@ export default class extends PIXI.Application {
       }
       this.column.move(-1*deltatime)
     }
-    const rect = this.column.column.getBounds()
+    const rect = this.column.getBounds(0)
     if(this.ball.hitColumn(rect.x, rect.y, rect.width, rect.height)){
+      Sound.hit.play()
       this.ticker.stop()
     }
   }
@@ -49,16 +53,26 @@ export default class extends PIXI.Application {
   input(){
     document.addEventListener('keydown', (e: KeyboardEvent)=>{
       if(e.keyCode === 32){
-        if(this.started)
-        this.ball.verticaleSpeed = this.ball.jumpSpeed
-        if(!this.started) this.started = true
+        if(this.started){
+          this.ball.verticaleSpeed = this.ball.jumpSpeed
+          Sound.jump.play()
+        }
+        if(!this.started) {
+          this.started = true
+          Sound.load()
+        }
       }
     })
 
     document.addEventListener('mousedown', ()=>{
-      if(this.started)
-      this.ball.verticaleSpeed = this.ball.jumpSpeed
-      if(!this.started) this.started = true
+      if(this.started){
+        this.ball.verticaleSpeed = this.ball.jumpSpeed
+        Sound.jump.play()
+      }
+      if(!this.started) {
+        this.started = true
+        Sound.load()
+      }
     })
   }
 

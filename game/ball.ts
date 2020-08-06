@@ -12,23 +12,19 @@ export default class {
 
   hitColumn(rx: number, ry: number, rw: number, rh: number): boolean {
 
-    // temporary variables to set edges for testing
     let testX = this.ball.x;
     let testY = this.ball.y;
 
-    // which edge is closest?
-    if (this.ball.x < rx)         testX = rx;      // test left edge
-    else if (this.ball.x > rx+rw) testX = rx+rw;   // right edge
-    if (this.ball.y < ry)         testY = ry;      // top edge
-    else if (this.ball.y > ry+rh) testY = ry+rh;   // bottom edge
+    if (this.ball.x < rx)         testX = rx;
+    else if (this.ball.x > rx+rw) testX = rx+rw;
+    if (this.ball.y < ry)         testY = ry;
+    else if (this.ball.y > ry+rh) testY = ry+rh;
 
-    // get distance from closest edges
     let distX = this.ball.x-testX;
     let distY = this.ball.y-testY;
     let distance = Math.sqrt( (distX*distX) + (distY*distY) );
 
-    // if the distance is less than the radius, collision!
-    if (distance <= 20) {
+    if (distance <= 15) {
       return true;
     }
     return false;
@@ -52,7 +48,8 @@ export default class {
 
   move(){
     this.ball.y += this.verticaleSpeed
-    if(this.ball.y < 0) this.ball.y = 20
+    if(this.ball.y < 15) this.ball.y = 20
+    if(this.ball.y > 380) this.ball.y = 380
   }
 
   verticale(speed: number){
