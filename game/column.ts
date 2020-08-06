@@ -27,7 +27,7 @@ export default class {
   generateSprite(renderer: PIXI.Renderer){
     const graphics = new PIXI.Graphics()
     let x = 600;
-    for(let i = 0; i < 3; i++){
+    for(let i = 0; i < 10; i++){
       graphics.clear()
       graphics.beginFill(0x995116)
       graphics.lineStyle(0)
@@ -84,10 +84,10 @@ export default class {
 
   randomY(){
     if(Math.random()>.5){
-      return Math.random() * -200
+      return Math.random() * -200 - 20
     }
     else{
-      return Math.random() * 100 + 100
+      return Math.random() * 200 + 100
     }
   }
 }
