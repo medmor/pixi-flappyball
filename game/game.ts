@@ -42,7 +42,7 @@ export default class extends PIXI.Application {
     }
     const rect = this.column.column.getBounds()
     if(this.ball.hitColumn(rect.x, rect.y, rect.width, rect.height)){
-      console.log("hit")
+      this.ticker.stop()
     }
   }
 
