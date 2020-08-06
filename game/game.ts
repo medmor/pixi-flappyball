@@ -31,8 +31,7 @@ export default class extends PIXI.Application {
 
   startTicker(){
     this.ticker.start
-    this.ticker.add(this.loop.bind(this))
-    
+    this.ticker.add(this.loop, this)
   }
 
   loop(deltatime){
@@ -48,7 +47,12 @@ export default class extends PIXI.Application {
       const rect = this.column.getBounds(i)
       if(this.ball.hitColumn(rect.x, rect.y, rect.width, rect.height)){
         Sound.hit.play()
+        this.ball.removeFromGame(this.stage)
         this.ticker.stop()
+        this.ticker.remove(this.loop, this)
+        this.ball.generateParticles(this.stage)
+        this.ticker.add(this.ball.animateBall, this.ball)
+        this.ticker.start()
       }
     }
   }

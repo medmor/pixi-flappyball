@@ -4,6 +4,8 @@ export default class {
 
   ball: PIXI.Sprite = null
   verticaleSpeed: number = 0
+  particles: PIXI.Sprite[] = []
+  velocities:{x: number, y:number}[] = []
   
 
   constructor(public fallSpeed, public jumpSpeed){
@@ -31,8 +33,6 @@ export default class {
   }
 
 
-
-
   generateSprite(renderer: PIXI.Renderer){
     const graphics = new PIXI.Graphics()
     graphics.clear()
@@ -52,14 +52,6 @@ export default class {
     if(this.ball.y > 380) this.ball.y = 380
   }
 
-  verticale(speed: number){
-    this.ball.y += speed
-  }
-
-
-  horizontale(speed: number){
-    this.ball.x += speed
-  }
 
   resetBall(){
     this.ball.x = 180
@@ -74,6 +66,26 @@ export default class {
     stage.removeChild(this.ball)
   }
 
+  generateParticles(stage: PIXI.Container){
+    for(let i = 0; i < 10; i++){
+      this.velocities.push({x:-Math.random()*1.5, y: -Math.random()*1.5})
+      this.particles.push(new PIXI.Sprite(this.ball.texture))
+      this.particles[i].scale.set(.2)
+      this.particles[i].x = this.ball.x
+      this.particles[i].y = this.ball.y
+      stage.addChild(this.particles[i])
+    }
+  }
+
+  animateBall(){
+    for(let i = 0; i < this.particles.length; i++){
+      this.particles[i].x += this.velocities[i].x
+      this.particles[i].y += this.velocities[i].y
+    }
+
+  }
+
+  
 
 
 
