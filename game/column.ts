@@ -2,25 +2,30 @@ import * as PIXI from "pixi.js"
 
 export default class {
 
-  column: PIXI.Sprite[] = []
+  columns: PIXI.Sprite[] = []
 
   constructor(public height = 60, public width = 9){
     
   }
 
   addToGame(stage: PIXI.Container){
-    for(let i = 0; i < this.column.length; i++){
-      stage.addChild(this.column[i])
+    for(let i = 0; i < this.columns.length; i++){
+      stage.addChild(this.columns[i])
     }
   }
 
   getBounds(i){
-    return this.column[i].getBounds()
+    return this.columns[i].getBounds()
   }
 
   move(speed){
-    for(let i = 0; i < this.column.length; i++){
-      this.column[i].x += speed
+    for(let i = 0; i < this.columns.length; i++){
+      this.columns[i].x += speed
+      if(this.columns[i].x<-1400){
+        this.columns[i].x = 600
+        this.columns[i].y = this.randomY()
+
+      }
     }
   }
 
@@ -35,9 +40,9 @@ export default class {
       graphics.endFill()
 
       const texture = renderer.generateTexture(graphics, PIXI.SCALE_MODES.LINEAR, 1);
-      this.column.push(new PIXI.Sprite(texture));
-      this.column[i].x = x
-      this.column[i].y = this.randomY()
+      this.columns.push(new PIXI.Sprite(texture));
+      this.columns[i].x = x
+      this.columns[i].y = this.randomY()
       x+=200
     }
   }

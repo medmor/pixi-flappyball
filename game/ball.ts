@@ -24,7 +24,7 @@ export default class {
     let distY = this.ball.y-testY;
     let distance = Math.sqrt( (distX*distX) + (distY*distY) );
 
-    if (distance <= 15) {
+    if (distance <= 5) {
       return true;
     }
     return false;

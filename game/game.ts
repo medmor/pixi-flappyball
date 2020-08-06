@@ -43,10 +43,13 @@ export default class extends PIXI.Application {
       }
       this.column.move(-1*deltatime)
     }
-    const rect = this.column.getBounds(0)
-    if(this.ball.hitColumn(rect.x, rect.y, rect.width, rect.height)){
-      Sound.hit.play()
-      this.ticker.stop()
+
+    for(let i = 0; i < this.column.columns.length; i++){
+      const rect = this.column.getBounds(i)
+      if(this.ball.hitColumn(rect.x, rect.y, rect.width, rect.height)){
+        Sound.hit.play()
+        this.ticker.stop()
+      }
     }
   }
 
