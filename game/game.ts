@@ -2,17 +2,23 @@ import * as PIXI from "pixi.js"
 import Ball from "./ball"
 import Column from "./column"
 import Sound from "./sound"
+import Intro from "./into"
 
 
 export default class extends PIXI.Application {
 
+  intro: Intro = null
   ball: Ball = null
   started = false
   column: Column = null
 
 
+
   constructor(){
     super({width: 600, height: 400, backgroundColor: 0x00BDF0})
+
+    this.intro = new Intro(this, this.beginGame.bind(this))
+    this.intro.addToStage()
 
     this. ball = new Ball(5, -10);
     this.ball.generateSprite(this.renderer)
@@ -64,10 +70,6 @@ export default class extends PIXI.Application {
           this.ball.verticaleSpeed = this.ball.jumpSpeed
           Sound.jump.play()
         }
-        if(!this.started) {
-          this.started = true
-          Sound.load()
-        }
       }
     })
 
@@ -76,11 +78,14 @@ export default class extends PIXI.Application {
         this.ball.verticaleSpeed = this.ball.jumpSpeed
         Sound.jump.play()
       }
-      if(!this.started) {
-        this.started = true
-        Sound.load()
-      }
+
     })
+  }
+
+  beginGame(){
+    this.started = true
+    Sound.load()
+    this.intro.removeFromStage()
   }
 
 }
