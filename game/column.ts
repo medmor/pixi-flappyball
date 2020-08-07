@@ -14,6 +14,13 @@ export default class {
     }
   }
 
+  removeFromGame(stage: PIXI.Container){
+    for(let i = 0; i< this.columns.length; i++){
+      stage.removeChild(this.columns[i])
+    }
+    this.columns = []
+  }
+
   getBounds(i){
     return this.columns[i].getBounds()
   }
@@ -34,8 +41,8 @@ export default class {
     let x = 600;
     for(let i = 0; i < 10; i++){
       graphics.clear()
-      graphics.beginFill(0x995116)
-      graphics.lineStyle(0)
+      //graphics.beginFill(0x995116)
+      graphics.lineStyle(2, 0xffffff)
       graphics.drawPolygon(this.calcColumnPoints())
       graphics.endFill()
 

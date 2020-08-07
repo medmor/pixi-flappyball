@@ -36,9 +36,9 @@ export default class {
   generateSprite(renderer: PIXI.Renderer){
     const graphics = new PIXI.Graphics()
     graphics.clear()
-    graphics.beginFill(0x995116)
-    graphics.lineStyle(0)
-    graphics.drawCircle(0, 0, 20)
+    //graphics.beginFill(0x995116)
+    graphics.lineStyle(5, 0xffffff)
+    graphics.drawCircle(0, 0, 15)
     graphics.endFill()
 
     const texture = renderer.generateTexture(graphics, PIXI.SCALE_MODES.LINEAR, 1);
@@ -70,7 +70,7 @@ export default class {
     for(let i = 0; i < 10; i++){
       this.velocities.push({x:-Math.random()*1.5, y: -Math.random()*1.5})
       this.particles.push(new PIXI.Sprite(this.ball.texture))
-      this.particles[i].scale.set(.2)
+      this.particles[i].scale.set(.5)
       this.particles[i].x = this.ball.x
       this.particles[i].y = this.ball.y
       stage.addChild(this.particles[i])

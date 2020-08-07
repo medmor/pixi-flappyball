@@ -14,12 +14,12 @@ export default class extends PIXI.Application {
 
 
   constructor(){
-    super({width: 600, height: 400, backgroundColor: 0x00BDF0})
+    super({width: 600, height: 400, backgroundColor: 0x00fca56})
 
     this.intro = new Intro(this, this.beginGame.bind(this))
     this.intro.addToStage()
 
-    this. ball = new Ball(5, -10);
+    this. ball = new Ball(5, -8);
     this.ball.generateSprite(this.renderer)
     this.ball.addToGame(this.stage)
 
@@ -52,6 +52,10 @@ export default class extends PIXI.Application {
           this.intro.addToStage()
           this.ball.addToGame(this.stage)
           this.ball.resetBall()
+          this.ticker.remove(this.ball.animateParticles, this.ball)
+          this.column.removeFromGame(this.stage)
+          this.column.generateSprite(this.renderer)
+          this.column.addToGame(this.stage)
         })
         this.ticker.add(this.ball.animateParticles, this.ball)
       }
