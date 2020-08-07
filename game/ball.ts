@@ -82,7 +82,7 @@ export default class {
       this.particles = []
       this.velocities = []
       endAnimationCallback()
-    }, 1000)
+    }, 3000)
   }
 
   animateParticles(){
