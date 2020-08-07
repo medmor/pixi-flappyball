@@ -66,7 +66,7 @@ export default class {
     stage.removeChild(this.ball)
   }
 
-  generateParticles(stage: PIXI.Container){
+  generateParticles(stage: PIXI.Container, endAnimationCallback:()=>void){
     for(let i = 0; i < 10; i++){
       this.velocities.push({x:-Math.random()*1.5, y: -Math.random()*1.5})
       this.particles.push(new PIXI.Sprite(this.ball.texture))
@@ -75,18 +75,20 @@ export default class {
       this.particles[i].y = this.ball.y
       stage.addChild(this.particles[i])
     }
+    setTimeout(()=>{
+      for(let i = 0; i<this.particles.length; i++){
+        this.particles[i].destroy()
+      }
+      this.particles = []
+      this.velocities = []
+      endAnimationCallback()
+    }, 1000)
   }
 
-  animateBall(){
+  animateParticles(){
     for(let i = 0; i < this.particles.length; i++){
       this.particles[i].x += this.velocities[i].x
       this.particles[i].y += this.velocities[i].y
     }
-
   }
-
-  
-
-
-
 }

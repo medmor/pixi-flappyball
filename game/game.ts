@@ -2,14 +2,13 @@ import * as PIXI from "pixi.js"
 import Ball from "./ball"
 import Column from "./column"
 import Sound from "./sound"
-import Intro from "./into"
+import Intro from "./intro"
 
 
 export default class extends PIXI.Application {
 
   intro: Intro = null
   ball: Ball = null
-  started = false
   column: Column = null
 
 
@@ -26,7 +25,7 @@ export default class extends PIXI.Application {
 
     this.ball.resetBall()
 
-    this.startTicker()
+    this.ticker.start
 
     this.column = new Column()
     this.column.generateSprite(this.renderer)
@@ -35,30 +34,26 @@ export default class extends PIXI.Application {
     this.input()
   }
 
-  startTicker(){
-    this.ticker.start
-    this.ticker.add(this.loop, this)
-  }
 
   loop(deltatime){
-    if(this.started){
       this.ball.move()
       if(this.ball.verticaleSpeed<this.ball.fallSpeed){
         this.ball.verticaleSpeed += .6
       }
       this.column.move(-1*deltatime)
-    }
 
     for(let i = 0; i < this.column.columns.length; i++){
       const rect = this.column.getBounds(i)
       if(this.ball.hitColumn(rect.x, rect.y, rect.width, rect.height)){
         Sound.hit.play()
         this.ball.removeFromGame(this.stage)
-        this.ticker.stop()
         this.ticker.remove(this.loop, this)
-        this.ball.generateParticles(this.stage)
-        this.ticker.add(this.ball.animateBall, this.ball)
-        this.ticker.start()
+        this.ball.generateParticles(this.stage, ()=>{
+          this.intro.addToStage()
+          this.ball.addToGame(this.stage)
+          this.ball.resetBall()
+        })
+        this.ticker.add(this.ball.animateParticles, this.ball)
       }
     }
   }
@@ -66,24 +61,22 @@ export default class extends PIXI.Application {
   input(){
     document.addEventListener('keydown', (e: KeyboardEvent)=>{
       if(e.keyCode === 32){
-        if(this.started){
           this.ball.verticaleSpeed = this.ball.jumpSpeed
           Sound.jump.play()
-        }
       }
     })
 
     document.addEventListener('mousedown', ()=>{
-      if(this.started){
         this.ball.verticaleSpeed = this.ball.jumpSpeed
+        if(Sound.jump)
         Sound.jump.play()
-      }
 
     })
   }
 
   beginGame(){
-    this.started = true
+    this.ticker.add(this.loop, this)
+    if(!Sound.music)
     Sound.load()
     this.intro.removeFromStage()
   }
