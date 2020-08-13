@@ -3,6 +3,7 @@ import * as PIXI from "pixi.js"
 export default class {
 
   columns: PIXI.Sprite[] = []
+  passed = false
 
   constructor(public height = 70, public width = 9){
     
@@ -25,14 +26,26 @@ export default class {
     return this.columns[i].getBounds()
   }
 
+  passedBall(ballX: number, callback: ()=>void){
+    if(!this.passed && this.columns[0].x < ballX - 100){
+      this.passed = true
+      callback()
+    }
+  }
   move(speed){
+
+
+    if(this.columns[0].x <- 300){
+      this.passed = false
+      let temp = this.columns[0]
+      temp.x = 600
+      temp.y = this.randomY()
+      this.columns[0] = this.columns[1]
+      this.columns[1] = this.columns[2]
+      this.columns[2] = temp      
+    }
     for(let i = 0; i < this.columns.length; i++){
       this.columns[i].x += speed
-      if(this.columns[i].x<-300){
-        this.columns[i].x = 600
-        this.columns[i].y = this.randomY()
-
-      }
     }
   }
 

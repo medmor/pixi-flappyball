@@ -10,7 +10,7 @@ export default class extends PIXI.Application {
   intro: Intro = null
   ball: Ball = null
   column: Column = null
-
+  score = 0
 
 
   constructor(){
@@ -55,6 +55,8 @@ export default class extends PIXI.Application {
     if(this.ball.checkOut()){
       this.onBallHit()
     }
+
+    this.column.passedBall(this.ball.ball.x, ()=>{ console.log(this.score+=10)})
   }
 
   onBallHit(){

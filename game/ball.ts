@@ -57,7 +57,7 @@ export default class {
 
 
   resetBall(){
-    this.ball.x = 180
+    this.ball.x = 100
     this.ball.y = 100
   }
 
