@@ -42,20 +42,23 @@ export default class {
     graphics.endFill()
 
     const texture = renderer.generateTexture(graphics, PIXI.SCALE_MODES.LINEAR, 1);
+    graphics.destroy()
     this.ball = new PIXI.Sprite(texture);
     this. ball.anchor.set(.5)
   }
 
   move(){
     this.ball.y += this.verticaleSpeed
-    if(this.ball.y < 15) this.ball.y = 20
-    if(this.ball.y > 380) this.ball.y = 380
+
   }
+
+  checkOut = () => this.ball.y < 15 || this.ball.y > 395 ? true : false
+  
 
 
   resetBall(){
     this.ball.x = 180
-    this.ball.y = 30
+    this.ball.y = 100
   }
 
   addToGame(stage: PIXI.Container){

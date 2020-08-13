@@ -28,7 +28,7 @@ export default class {
   move(speed){
     for(let i = 0; i < this.columns.length; i++){
       this.columns[i].x += speed
-      if(this.columns[i].x<-1400){
+      if(this.columns[i].x<-300){
         this.columns[i].x = 600
         this.columns[i].y = this.randomY()
 
@@ -39,7 +39,7 @@ export default class {
   generateSprite(renderer: PIXI.Renderer){
     const graphics = new PIXI.Graphics()
     let x = 600;
-    for(let i = 0; i < 10; i++){
+    for(let i = 0; i < 3; i++){
       graphics.clear()
       //graphics.beginFill(0x995116)
       graphics.lineStyle(2, 0xffffff)
@@ -50,8 +50,9 @@ export default class {
       this.columns.push(new PIXI.Sprite(texture));
       this.columns[i].x = x
       this.columns[i].y = this.randomY()
-      x+=200
+      x+=300
     }
+    graphics.destroy()
   }
 
   calcColumnPoints(){
