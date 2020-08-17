@@ -3,6 +3,7 @@ import Ball from "./ball"
 import Column from "./column"
 import Sound from "./sound"
 import Intro from "./intro"
+import Info from "./info"
 
 
 export default class extends PIXI.Application {
@@ -10,7 +11,9 @@ export default class extends PIXI.Application {
   intro: Intro = null
   ball: Ball = null
   column: Column = null
+  info: Info
   score = 0
+  
 
 
   constructor(){
@@ -32,6 +35,7 @@ export default class extends PIXI.Application {
     this.column.addToGame(this.stage)
 
     this.input()
+    this.info = new Info()
 
     const graphics = new PIXI.Graphics()
     this.stage.addChild(graphics)
@@ -56,7 +60,7 @@ export default class extends PIXI.Application {
       this.onBallHit()
     }
 
-    this.column.passedBall(this.ball.ball.x, ()=>{ console.log(this.score+=10)})
+    this.column.passedBall(this.ball.ball.x, ()=>{ this.info.setScore(this.score+=10)})
   }
 
   onBallHit(){
@@ -92,10 +96,15 @@ export default class extends PIXI.Application {
   }
 
   beginGame(){
-    this.ticker.add(this.loop, this)
-    if(!Sound.music)
-    Sound.load()
-    this.intro.removeFromStage()
+    if(!Sound.music) Sound.load(()=>{
+      this.ticker.add(this.loop, this)
+      this.intro.removeFromStage()
+      this.info.addToStage(this.stage)
+    })
+    else{
+      this.ticker.add(this.loop, this)
+      this.intro.removeFromStage()
+    }
   }
   
 

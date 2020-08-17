@@ -7,7 +7,7 @@ export default class SoundManager{
 
 
 
-  static load(){
+  static load(callback: ()=>void){
     this.music = new Howl({
       src: ['https://github.com/medmor/pixi-flappyball/raw/master/sounds/music.mp3'],
       volume: .6,
@@ -19,6 +19,7 @@ export default class SoundManager{
 
     this.music.on('load', ()=>{
       this.music.play()
+      callback()
     })
   }
 }
