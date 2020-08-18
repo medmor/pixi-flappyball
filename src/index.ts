@@ -1,5 +1,4 @@
-  // Import stylesheets
-import './style.css';
+
 import Game from "./game/game"
 
 // Write TypeScript code!
@@ -8,6 +7,5 @@ const game = new Game()
 
 appDiv.appendChild(game.view)
 window.focus()
-
 
 
