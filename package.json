@@ -1,10 +1,20 @@
 {
-  "name": "typescript",
+  "name": "flappyball",
   "version": "0.0.0",
-  "private": true,
+  "scripts": {
+    "webpack": "webpack",
+    "dev": "npm run webpack -- --mode development --watch",
+    "build": "npm run webpack -- --mode production"
+  },
   "dependencies": {
     "@types/howler": "^2.2.1",
     "howler": "^2.2.0",
-    "pixi.js": "^5.3.2"
+    "pixi.js": "^5.3.0"
+  },
+  "devDependencies": {
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   }
 }
